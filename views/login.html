@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title> <link rel="icon" type="image/x-icon" href="./resources/favicon/favicon.ico">
+
+    <link rel="stylesheet" href="../public/css/login.css">
+
+    
+    <script src="./vendor/jquery.min.js"></script>
+    <script src="../public/scripts/login_script.js" ></script>
+
+</head>
+<body>
+    <div class="wrapper">
+        <div class="title-text">
+            <div class="title login">Log-in</div>
+            <div class="title signup">Sign-up</div>
+        </div>
+        <div class="form-container">
+        <div class="slide-controls">
+            <input type="radio" name="slider" id="login" checked>
+            <input type="radio" name="slider" id="signup">
+            <label for="login" class="slide login">Login</label>
+            <label for="signup" class="slide signup">Signup</label>
+            <div class="slide-tab"></div>
+        </div>
+            <div class="form-inner">
+                <form  action="/validateLogin" method= "POST" class="login">
+                    <div class="field">
+                        <input type="text" name="username" placeholder="Username / Email" id="username" required>
+                    </div>
+                    <div class="field">
+                        <input type="password" name="password"  placeholder="Password" id="password" required>
+                    </div>
+                    <div class="field">
+                        <input type="submit" value="Login" id="loginButton">
+                    </div>
+                    <div class="signup-link">Not a member?<a href="#"> Sign-up here.</a></div>
+                </form>
+                <form action="/validateSignup" method="POST" class="signup">
+                    <div class="field">
+                        <input type="text" placeholder="Username" name="username" required>
+                    </div>
+                    <div class="field">
+                        <input type="text" placeholder="E-mail" name="email" required>
+                    </div>
+                    <div class="field">
+                        <input type="password" placeholder="Password" name="password"  required>
+                    </div>
+                    <div class="field">
+                        <input type="password" placeholder="Confirm Password" required>
+                    </div>
+                    <div class="field">
+                        <input type="submit" value="Register" id="submitButton">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        const loginForm = document.querySelector("form.login");
+        const signupForm = document.querySelector("form.signup");
+        const loginButton = document.querySelector("label.login");
+        const signupButton = document.querySelector("label.signup");
+        const signupLink = document.querySelector(".signup-link a");
+        const loginTitle= document.querySelector(".title-text .login");
+        const signupTitle= document.querySelector(".title-text .signup");
+        signupButton.addEventListener('click',()=>{
+            loginForm.style.marginLeft = "-50%";
+            loginTitle.style.marginLeft="-50%";
+        })
+
+
+        loginButton.addEventListener("click",()=>{
+            loginForm.style.marginLeft = "0%";
+            
+            loginTitle.style.marginLeft="0%";
+        })
+
+        signupLink.addEventListener('click',()=>{
+            signupButton.click();
+            return false;
+        })
+    </script>
+    
+</body>
+</html>
