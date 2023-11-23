@@ -5,7 +5,9 @@ export const checkIfAuthenticated =(req,res,next) =>{
             return next();
         }   
     }catch(e){
-        
+       console.log("Exception caught in checkIfAuthenticated")
+       console.log(e) 
+       return res.send("ERORRITO ERRORITO BABy")
     }
 
     res.redirect('/login')

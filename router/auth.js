@@ -8,7 +8,7 @@ import { generateSalt } from '../functions/saltGenerator.js';
 const router = express.Router();
 
 
-router.post('/login', (req, res) => {  
+router.post('/login', async (req, res) => {  
 
    console.log("Login attempt");
 
@@ -53,7 +53,7 @@ router.post('/login', (req, res) => {
 
 
 
-router.post('/signup', (req, res) => {
+router.post('/signup', async (req, res) => {
 
     console.log('Signup atempt');
     
@@ -98,10 +98,13 @@ router.delete('/logout',(req,res)=>{
         throw Exception("User not defined")
     }
 
-    req.session.user.username = ''
-    req.session.user.loggedIn = 0
+    req.session.destroy((err) => {
+        if (err) {
+            return res.status(400).send('Unable to log out')
+        }
+    });
 
-    res.redirect('/login');
+    return res.redirect('/login');
 
 })
 

@@ -4,7 +4,7 @@
 import sessions from "express-session";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
-import {checkIfAuthenticated} from "./controllers/authentication.js";
+import {checkIfAuthenticated} from "./functions/authentication.js";
 import {rootIndexResponse} from "./controllers/rootIndexResponse.js"
 import authRouter from './router/auth.js';
 import express from 'express'
@@ -51,7 +51,12 @@ server.use(express.static(path.join(__dirname,'/public/scripts')),
 
 // Base routes
 
-server.get('/',checkIfAuthenticated,rootIndexResponse);
+server.get('/',checkIfAuthenticated,(req,res)=>{
+    res.status(200);
+    res.set('Content-Type','text/html');
+    res.redirect('views/');
+});
+
 server.use(authRouter);
 
 
@@ -59,7 +64,7 @@ server.use(authRouter);
 server.use('*',(req,res) => {
     res.status(404);
     res.set('Content-Type','text/html');
-    res.sendFile(path.join(__dirname,'/404_schoolServer.html'));
+    res.sendFile(path.join(__dirname,'/views/404_schoolServer.html'));
 });
 
 
