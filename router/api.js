@@ -6,7 +6,7 @@ import sessions from 'express-session';
 const router = express.Router();
 
 
-router.get('/api/blog',(req,res)=>{
+router.get('/api/blog',async (req,res)=>{
 
     rows = query('SELECT Post.title AS title, Post.content AS content, Post.date AS date, Login.username AS author'+
     ' FROM Post INNER JOIN Login'+
@@ -28,3 +28,29 @@ router.get('/api/blog',(req,res)=>{
  
 })
  
+
+router.post('/test/postTest', async (req,res)=>{
+    res.status(200);
+    res.set('Content-Type','text/html');
+    return res.send("Your post request was succesfull.");
+
+})
+
+server.post('/api/blog',(req,res) =>{
+
+    console.log('POST API REACHED');
+    let rows;
+    try{
+        rows = query(`INSERT INTO Post(author,title,content,date) values (${req.author},${req.title},${req.content},NOW();`)
+    }catch(e){
+        console.log(e);
+        return res.send("Error occured,sorry bruv");
+        
+    }
+
+    let response = {Request:"Success"}
+    return res.send(JSON.stringify(response));
+})
+
+
+export default router;
