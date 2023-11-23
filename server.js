@@ -43,7 +43,7 @@ server.use(sessions({
 server.use(express.static(path.join(__dirname,'/public')));
 
 server.get("/favicon.ico",(req,res)=>{
-    res.sendFile("./public/resources/favicon.ico");
+    res.sendFile(path.join(__dirname,'/public/resources/favicon.ico'));
 })
 
 server.use(express.static(path.join(__dirname,'/public/scripts')),
