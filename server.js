@@ -19,12 +19,6 @@ const port = config.server.port;
 
 // Create server (app)
 const server = express();
-server.use((req, res, next) => {
-    res.append('Access-Control-Allow-Origin', ['*']);
-    res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.append('Access-Control-Allow-Headers', 'Content-Type');
-    next();
-});
 
 server.use(express.json());
 server.use(express.urlencoded({extended : true}));
