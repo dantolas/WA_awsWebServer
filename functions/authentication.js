@@ -1,4 +1,5 @@
 export const checkIfAuthenticated =(req,res,next) =>{
+    console.log("checkIfAuthenticated fired")
     try{
         if(req.session.user.loggedIn){
             

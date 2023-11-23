@@ -88,11 +88,11 @@ router.post('/signup', async (req, res) => {
 });
 
 
-router.get('/login',(req,res)=>{
+router.get('/login',async (req,res)=>{
     res.redirect('views/login.html')
 })  
 
-router.delete('/logout',(req,res)=>{
+router.delete('/logout',async (req,res)=>{
 
     if(!req.session.user){
         throw Exception("User not defined")
