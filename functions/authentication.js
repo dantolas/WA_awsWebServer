@@ -1,6 +1,6 @@
 export const checkIfAuthenticated =(req,res,next) =>{
     try{
-        if(req.session.user.loggedIn === 1){
+        if(req.session.user.loggedIn){
             
             return next();
         }   
