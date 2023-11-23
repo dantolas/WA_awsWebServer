@@ -3,9 +3,7 @@
 // ##########
 import sessions from "express-session";
 import cookieParser from "cookie-parser";
-import bodyParser from "body-parser";
 import {checkIfAuthenticated} from "./functions/authentication.js";
-import {rootIndexResponse} from "./controllers/rootIndexResponse.js"
 import authRouter from './router/auth.js';
 import express from 'express'
 import config from "./config.js"; 
