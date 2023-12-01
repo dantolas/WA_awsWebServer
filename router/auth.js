@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.post('/login', async (req, res) => {  
 
-    console.log("Login POST received with query params:"+req.query.req)
+    console.log("Login POST received with session req:"+req.session.req)
 
     let requestUsername = req.body.username;
     let requestPassword = req.body.password;
