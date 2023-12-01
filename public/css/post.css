@@ -62,7 +62,7 @@ svg:hover{
 }
 
 .navbar-nav:last-child{
-    align-self: self-end;
+    align-self: flex-end;
 }
 
 .nav-link{
