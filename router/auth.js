@@ -13,13 +13,11 @@ router.post('/login', async (req, res) => {
     let requestUsername = req.body.username;
     let requestPassword = req.body.password;
 
-    console.log("request params: "+requestPassword, requestUsername)
 
     let rows = null;
     let params = [requestUsername,requestUsername]
     try{
         rows = await query('SELECT passHash,username,salt FROM Login WHERE Login.username = ? OR Login.email = ?', params);
-        console.log(rows);
     }catch(Exception){
 
     //TODO: Remove after testing for safety
@@ -53,7 +51,7 @@ router.post('/login', async (req, res) => {
     let user = {"username":rows[0].username, "loggedIn":1};
 
     req.session.user = JSON.stringify(user);
-    return res.redirect('/views/');
+    return res.redirect('/public/views/');
 
 });  
 
@@ -92,7 +90,7 @@ router.post('/signup', async (req, res) => {
 
 
 router.get('/login',async (req,res)=>{
-    res.redirect('views/login.html')
+    res.redirect('/public/views/login.html')
 })  
 
 router.delete('/logout',async (req,res)=>{

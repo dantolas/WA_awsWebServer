@@ -27,7 +27,6 @@ server.use((req, res, next) => {
     next();
 });
    
-server.set('view engine','html');
 server.use(express.json());
 server.use(express.urlencoded({extended : true}));
 server.use(cookieParser());
@@ -53,17 +52,18 @@ server.get("/favicon.ico",(req,res)=>{
 server.get('/',checkIfAuthenticated,(req,res)=>{
     res.status(200);
     res.set('Content-Type','text/html');
-    res.render('views/');
+    res.redirect('views/');
 });
 
 server.use(authRouter);
 
+server.use(checkIfAuthenticated,express.static(path.join(__dirname,'/views/')));
 
 // No route found
 server.use('*',(req,res) => {
     res.status(404);
     res.set('Content-Type','text/html');
-    res.render(path.join(__dirname,'public/views/404_schoolServer.html'));
+    res.sendFile(path.join(__dirname,'public/views/404_schoolServer.html'));
 });
 
 
