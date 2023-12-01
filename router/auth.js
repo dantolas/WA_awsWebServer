@@ -46,7 +46,6 @@ router.post('/login', async (req, res) => {
         res.status(401);
         res.set('Content-Type', 'application/json');
         let data = {login:'false', error:'incorrect login password',};
-        connection.end();
         return res.send(JSON.stringify(data)); 
 
     }
