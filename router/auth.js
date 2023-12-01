@@ -30,7 +30,7 @@ router.post('/login', async (req, res) => {
 
     }
 
-    if(!rows){
+    if(!rows || rows.length == 0){
     res.status(401);
         res.set('Content-Type', 'application/json');
         let data = {login:'false', error:'incorrect login attributes, rows empty',};

@@ -12,7 +12,6 @@ export const checkIfAuthenticated =(req,res,next) =>{
 
         if(!req.session.user){
             console.log("Auth fired:"+req.url);
-            req.session.req = req.url;
             return res.redirect('/login');
         }   
     }catch(e){
