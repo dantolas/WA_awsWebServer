@@ -44,14 +44,14 @@ server.use(sessions({
 // Load Public (css,js,resources)
 server.use(express.static(path.join(__dirname,'/public')));
 
-server.get("/favicon.ico",(req,res)=>{
-    res.sendFile(path.join(__dirname,'/public/resources/favicon.ico'));
-})
+// server.get("/favicon.ico",(req,res)=>{
+//     res.sendFile(path.join(__dirname,'/public/resources/favicon.ico'));
+// })
 
-server.use(express.static(path.join(__dirname,'/public/scripts')),
-(req,res) => {
-    res.set('content-type', 'application/javascript;charset=utf-8');
-});
+// server.use(express.static(path.join(__dirname,'/public/scripts')),
+// (req,res) => {
+//     res.set('content-type', 'application/javascript;charset=utf-8');
+// });
 
 // // Base routes
 
