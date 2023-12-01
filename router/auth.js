@@ -91,12 +91,12 @@ router.post('/signup', async (req, res) => {
 });
 
 
-router.get('/login/:',async (req,res)=>{
-    let redirectURL = '/views/login.html';    
-    if(req.query.request){
-        redirectURL = req.query.request;
+router.get('/login',async (req,res)=>{
+    let redirect = 'views/login.html';
+    if(req.session.lastRequestedAuthUrl){
+        redirect = req.session.lastRequestedAuthUrl;
     }
-    res.redirect(redirectURL);
+    res.redirect(redirect);
 })  
 
 router.delete('/logout',async (req,res)=>{
