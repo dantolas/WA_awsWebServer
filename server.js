@@ -50,13 +50,13 @@ server.get("/favicon.ico",(req,res)=>{
 
 // // Base routes
 
-// server.get('/',checkIfAuthenticated,(req,res)=>{
-//     res.status(200);
-//     res.set('Content-Type','text/html');
-//     res.redirect('views/');
-// });
+server.get('/',checkIfAuthenticated,(req,res)=>{
+    res.status(200);
+    res.set('Content-Type','text/html');
+    res.redirect('views/');
+});
 
-// server.use(authRouter);
+server.use(authRouter);
 
 
 // No route found
