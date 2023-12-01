@@ -11,6 +11,8 @@ const router = express.Router();
 
 router.post('/login', async (req, res) => {  
 
+    console.log("Login POST received with query params:"+req.query.req)
+
     let requestUsername = req.body.username;
     let requestPassword = req.body.password;
 
@@ -50,6 +52,7 @@ router.post('/login', async (req, res) => {
     let user = {"username":rows[0].username, "loggedIn":1};
 
     req.session.user = JSON.stringify(user);
+    
     if(req.query.req){
         return res.redirect(req.query.req);
     }
