@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get('/api',async(req,res)=>{
     res.status(200);
-    res.sendFile('/views/api/api.html');
+    res.sendFile('../views/api/api.html');
 })
 
 router.get('/api/blog',async (req,res)=>{
