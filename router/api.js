@@ -30,7 +30,7 @@ router.get('/api/blog',async (req,res)=>{
 })
  
 
-server.post('/api/blog',checkIfAuthenticated,(req,res) =>{
+router.post('/api/blog',checkIfAuthenticated,(req,res) =>{
 
     console.log('POST API REACHED');
     let rows;
