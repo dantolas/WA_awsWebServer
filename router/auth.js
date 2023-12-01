@@ -20,7 +20,7 @@ router.post('/login', async (req, res) => {
    let rows = null;
    try{
 
-       let rows = query('SELECT `passHash`,`username` FROM Login WHERE `Login.username` = ? OR `Login.email` = ?', requestUsername)
+       let rows = query('SELECT `passHash`,`username`,`salt` FROM Login WHERE `Login.username` = ? OR `Login.email` = ?', requestUsername)
    }catch(Exception){
 
     //TODO: Remove after testing for safety
@@ -31,12 +31,20 @@ router.post('/login', async (req, res) => {
 
    }
 
+   if(!rows){
+    res.status(401);
+        res.set('Content-Type', 'application/json');
+        let data = {login:'false', error:'incorrect login attributes',};
+        return res.send(JSON.stringify(data)); 
+   }
 
-    if(!rows || !validatePassword(requestPassword,rows[0].passHash)){
+    reqPasswordHash = hashPassword((requestPassword+rows[0].salt))
+
+    if(!validatePassword(requestPasswordHash,rows[0].passHash)){
 
         res.status(401);
         res.set('Content-Type', 'application/json');
-        let data = {login:'false', error:'incorrect login attributes',};
+        let data = {login:'false', error:'incorrect login password',};
         connection.end();
         return res.send(JSON.stringify(data)); 
 
@@ -62,18 +70,18 @@ router.post('/signup', async (req, res) => {
     let requestEmail = req.body.email;
     
     let salt = generateSalt(requestUsername,requestPassword);
-    let passHash = hashPassword(passHash);
+    let passHash = hashPassword((passHash+salt));
 
     console.log(requestUsername+" "+requestPassword+ " "+requestEmail);
 
     try{
 
-        query('INSERT INTO Login(`username`,`email`,`passHash`) values (?,?,?)', requestUsername, requestEmail, passHash);
+        query('INSERT INTO Login(`username`,`email`,`passHash`,`salt`) values (?,?,?,?)', requestUsername, requestEmail, passHash,salt);
 
         console.log('Executed query');
         res.status(200);
         res.set('Content-Type','text/html');
-        return res.send('Succesfully Signed-up. <a href=\'/web/\'>Back to Login.</a>');
+        return res.send('Succesfully Signed-up. <a href=\'/\'>Back to Login.</a>');
 
     }catch(Exception){
         console.log('Error thrown during sql query');
