@@ -1,5 +1,6 @@
 import {query} from '../functions/database.js'
 import express from 'express'
+import {checkIfAuthenticated} from '../functions/authentication.js'
 import sessions from 'express-session';
 
 
@@ -29,19 +30,12 @@ router.get('/api/blog',async (req,res)=>{
 })
  
 
-router.post('/test/postTest', async (req,res)=>{
-    res.status(200);
-    res.set('Content-Type','text/html');
-    return res.send("Your post request was succesfull.");
-
-})
-
-server.post('/api/blog',(req,res) =>{
+server.post('/api/blog',checkIfAuthenticated,(req,res) =>{
 
     console.log('POST API REACHED');
     let rows;
     try{
-        rows = query(`INSERT INTO Post(author,title,content,date) values (${req.author},${req.title},${req.content},NOW();`)
+        rows = query('INSERT INTO Post(author,title,content,date) values (?,?,?,NOW());')
     }catch(e){
         console.log(e);
         return res.send("Error occured,sorry bruv");

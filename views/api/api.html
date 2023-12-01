@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API</title>
+
+    <script defer>
+
+        const apiForm = document.querySelector("#apiForm");
+    
+        function updateFormMethod(element){
+            apiForm.setAttribute("method",element.value);
+        }
+    
+        document.querySelector("#getBlog").addEventListener('onclick',()=>{
+            console.log("Yeah u clicked it.")
+            const sendButton = document.createElement("input");
+            sendButton.type = "submit";
+            sendButton.innerHTML = "Send GET request";
+            sendButton.value = "GET";
+            sendButton.className = "sendButton";
+    
+            apiForm.appendChild(sendButton);
+            apiForm.updateFormMethod(sendButton);
+            apiForm.action = "/api/blog"
+    
+        })
+    
+        document.querySelector("#getBlogID").addEventListener('onclick',()=>{
+    
+            const inputID = document.createElement("input");
+            inputID.type = "number";
+    
+            const sendButton = document.createElement("input");
+            sendButton.type = "submit";
+            sendButton.innerHTML = "Send GET request";
+            sendButton.value = "GET";
+            sendButton.className = "sendButton";
+    
+            apiForm.appendChild(sendButton);
+            apiForm.updateFormMethod(sendButton);
+            apiForm.action = "/api/blogId"
+    
+        })
+    
+        document.querySelector("#deleteBlog").addEventListener('onclick',()=>{
+            const sendButton = document.createElement("input");
+            sendButton.type = "submit";
+            sendButton.innerHTML = "Send DELETE request";
+            sendButton.value = "DELETE";
+            sendButton.className = "sendButton";
+    
+            apiForm.appendChild(sendButton);
+            apiForm.updateFormMethod(sendButton);
+            apiForm.action = "/api/blog"
+    
+        })
+    
+        document.querySelector("#getBlog").addEventListener('onclick',()=>{
+            const sendButton = document.createElement("input");
+            sendButton.type = "submit";
+            sendButton.innerHTML = "Send POST request";
+            sendButton.value = "POST";
+            sendButton.className = "sendButton";
+    
+            apiForm.appendChild(sendButton);
+            apiForm.updateFormMethod(sendButton);
+    
+        })
+    
+    
+    </script>
+</head>
+<style>
+
+    @import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');
+    
+    :root{
+        font-size: 26px;
+        --text-primary: #72ddb9;
+        --text-secondary: #aee6d3;
+        --bg-primary: #202c55;
+        --bg-secondary: #192244;
+        scrollbar-color: var(--bg-primary), var(--text-primary);
+        scrollbar-width: thin;
+    }
+    html,body{
+        height: 100%;
+
+    }
+
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .name{
+        display: flex;
+        justify-content: space-between;
+    }
+
+
+    ul{
+        list-style: none;
+    }
+
+    body{
+        font-size: 1rem;
+        line-height: 1.6;
+        background-color: var(--bg-secondary);
+    }
+
+    header{
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+    }
+
+    nav{
+        padding: 0;
+        max-width: 100%;
+        margin: 0 auto;
+        display: flex;
+        justify-content:start;
+        padding-bottom: 2rem;
+        position: relative;
+        align-items: center;
+    }
+
+    .menu > li, .menu > a{
+        display: inline-block;
+    }
+
+    .menu a{
+        text-decoration: none;
+        display: block;
+        padding: 10px 1rem;
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+    }
+
+    .menu li{
+        position: relative;
+    }
+
+
+    .menu a:hover{
+        color: var(--text-primary);
+        background-color: var(--bg-secondary);
+        transition: .33s ease;
+    }
+
+    .submenu {
+        position: absolute;
+        left: 0;
+        display: none;
+    }
+
+    .submenu a{
+        background-color: var(--bg-secondary);
+        color: var(--text-primary);
+    }
+
+    .submenu a:hover{
+        background-color: var(--text-primary);
+        color: var(--bg-secondary);
+    }
+
+    .menu li:hover > .submenu{
+        display: block;
+    }
+
+    .submenu li{
+        position: relative;
+        width: 100%;
+    }
+
+    .submenu li a{
+        white-space: nowrap;
+    }
+
+
+    .subsubmenu{
+        position: absolute;
+        left: 100%;
+        top: 0;
+        display: none;
+    }
+
+    .subsubmenu a{
+        background-color: var(--text-primary);
+        color: var(--bg-secondary);
+    }
+  
+
+    .subsubmenu li{
+        width: 100%;
+        
+    }
+
+    .subsubmenu li a{
+        white-space: nowrap;
+    }
+
+    .submenu li:hover > .subsubmenu{
+        display: block;
+    }
+
+    .picker{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .picker a{
+        padding: 10px 1rem;
+        text-decoration: none;
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+    }
+
+    .picker a:hover{
+        background-color: var(--text-primary);
+        color: var(--bg-secondary);
+    }
+
+
+    footer{
+        position: fixed;
+        bottom: 0;
+        display: flex;
+    }
+
+    footer a{
+        text-decoration: none;
+        color: var(--text-primary);
+    }
+
+
+</style>
+
+
+<body>
+    <header>
+        
+        <div class="name">
+            <h1>API</h1>
+            <h2>Samuel Kuta C4b</h2>
+        </div>
+        <nav>
+            <ul class="menu">
+                <li><a href="">Endpoint Descriptions</a>
+                    <ul class="submenu">
+                        <li><a href="">POST /api/blog</a>
+                            <ul class="subsubmenu">
+                                <li><a>Creates a blog post with your username. Just title it and type some content.</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="">GET /api/blog</a>
+                            <ul class="subsubmenu">
+                                <li><a>Returns all blogs in the db. They will be returned in JSON format.</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="">GET /api/blog/blogid</a>
+                            <ul class="subsubmenu">
+                                <li><a>Gets u a blog by ID in database. Will be returned in JSON.</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="">DELETE /api/blog/blogid</a>
+                            <ul class="subsubmenu">
+                                <li><a>Deletes a blog by that u created by id in database.</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="">PATCH /api/blog/blogid</a>
+                            <ul class="subsubmenu">
+                                <li><a>I will not implement this because I already spent too much time on this.</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="picker">
+        <a href="getBlog">GET BLOG</a>
+        <a href="getBlogId">GET BLOG BY ID</a>
+        <a href="deleteBlog">DELETE BLOG</a>
+        <a href="postBlog">POST BLOG</a>
+    </div>
+    <form id="apiForm" ></form>
+
+    <footer>
+        <a href="https://github.com/dantolas/WA_awsWebServer">GITHUB LINK</a>
+    </footer>
+    </body>
+
+    </html>

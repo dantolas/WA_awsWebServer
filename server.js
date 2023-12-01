@@ -52,12 +52,12 @@ server.get("/favicon.ico",(req,res)=>{
 server.get('/',checkIfAuthenticated,(req,res)=>{
     res.status(200);
     res.set('Content-Type','text/html');
-    res.redirect('views/');
+    res.sendFile('/views/index.html');
 });
 
 server.use(authRouter);
 
-server.use(checkIfAuthenticated,express.static(path.join(__dirname,'/views/')));
+//server.use(checkIfAuthenticated,express.static(path.join(__dirname,'/views/')));
 
 // No route found
 server.use('*',(req,res) => {
