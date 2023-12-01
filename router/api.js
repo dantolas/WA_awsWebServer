@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get('/api/blog',async (req,res)=>{
 
-    rows = query('SELECT Post.title AS title, Post.content AS content, Post.date AS date, Login.username AS author'+
+    let rows = query('SELECT Post.title AS title, Post.content AS content, Post.date AS date, Login.username AS author'+
     ' FROM Post INNER JOIN Login'+
     ' ON Post.author = Login.id;');
  
