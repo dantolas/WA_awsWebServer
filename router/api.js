@@ -47,7 +47,7 @@ router.get('/api/blog',async (req,res)=>{
 router.get('/api/blogId',async (req,res) =>{
 
     if(!req.id || typeof req.id != 'number'){
-        res.send("A valid id must be sent with this request. The id is a positive integer.");
+        return res.send("A valid id must be sent with this request. The id is a positive integer.");
     }
     let rows;
     try {
@@ -55,7 +55,7 @@ router.get('/api/blogId',async (req,res) =>{
     ' FROM Post INNER JOIN Login'+
     ' ON Post.author = Login.id; AND Post.id =?',[req.id]);
     } catch (error) {
-        res.send("Error during SQL query.");
+        return res.send("Error during SQL query.");
     }
      
     res.status(200);
