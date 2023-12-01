@@ -7,9 +7,9 @@ import sessions from 'express-session';
 const router = express.Router();
 
 
-router.get('/api',async(req,res)=>{
+router.get('/api',checkIfAuthenticated,async(req,res)=>{
     res.status(200);
-    res.sendFile('../views/api/api.html');
+    res.sendFile('/api/api.html',{root:'views'});
 })
 
 router.get('/api/blog',async (req,res)=>{
