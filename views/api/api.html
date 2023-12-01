@@ -5,72 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API</title>
 
-    <script defer>
-
-        const apiForm = document.querySelector("#apiForm");
-    
-        function updateFormMethod(element){
-            apiForm.setAttribute("method",element.value);
-        }
-    
-        document.querySelector("#getBlog").addEventListener('onclick',()=>{
-            console.log("Yeah u clicked it.")
-            const sendButton = document.createElement("input");
-            sendButton.type = "submit";
-            sendButton.innerHTML = "Send GET request";
-            sendButton.value = "GET";
-            sendButton.className = "sendButton";
-    
-            apiForm.appendChild(sendButton);
-            apiForm.updateFormMethod(sendButton);
-            apiForm.action = "/api/blog"
-    
-        })
-    
-        document.querySelector("#getBlogID").addEventListener('onclick',()=>{
-    
-            const inputID = document.createElement("input");
-            inputID.type = "number";
-    
-            const sendButton = document.createElement("input");
-            sendButton.type = "submit";
-            sendButton.innerHTML = "Send GET request";
-            sendButton.value = "GET";
-            sendButton.className = "sendButton";
-    
-            apiForm.appendChild(sendButton);
-            apiForm.updateFormMethod(sendButton);
-            apiForm.action = "/api/blogId"
-    
-        })
-    
-        document.querySelector("#deleteBlog").addEventListener('onclick',()=>{
-            const sendButton = document.createElement("input");
-            sendButton.type = "submit";
-            sendButton.innerHTML = "Send DELETE request";
-            sendButton.value = "DELETE";
-            sendButton.className = "sendButton";
-    
-            apiForm.appendChild(sendButton);
-            apiForm.updateFormMethod(sendButton);
-            apiForm.action = "/api/blog"
-    
-        })
-    
-        document.querySelector("#getBlog").addEventListener('onclick',()=>{
-            const sendButton = document.createElement("input");
-            sendButton.type = "submit";
-            sendButton.innerHTML = "Send POST request";
-            sendButton.value = "POST";
-            sendButton.className = "sendButton";
-    
-            apiForm.appendChild(sendButton);
-            apiForm.updateFormMethod(sendButton);
-    
-        })
-    
-    
-    </script>
+    <script src="../../public/scripts/apiFrontend.js" defer></script>
 </head>
 <style>
 
@@ -213,16 +148,17 @@
         align-items: center;
     }
 
-    .picker a{
+    .picker p{
         padding: 10px 1rem;
         text-decoration: none;
         background-color: var(--bg-primary);
         color: var(--text-primary);
     }
 
-    .picker a:hover{
+    .picker p:hover{
         background-color: var(--text-primary);
         color: var(--bg-secondary);
+        cursor: pointer;
     }
 
 
@@ -237,6 +173,55 @@
         color: var(--text-primary);
     }
 
+    #apiForm{
+        margin-top: 2rem;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .sendButton{
+        font-size: 30px;
+       background-color: var(--text-primary);
+       color: var(--bg-primary);
+       padding: 10px 1rem;
+       cursor: pointer;
+       margin-top: 2rem;
+    }
+
+    .sendButton:hover{
+        background-color: var(--text-secondary);
+    }
+
+    .textInput{
+        font-size: large;
+        text-decoration: none;
+        padding: 10px;
+        color: var(--text-primary);
+        background-color: var(--bg-secondary);
+        border: 2px solid var(--text-primary);
+    }
+
+    .textInputArea{
+        font-size: large;
+        text-decoration: none;
+        padding: 20px;
+        color: var(--text-primary);
+        background-color: var(--bg-secondary);
+        border: 2px solid var(--text-primary);
+    }
+
+    .numberInput{
+        font-size: large;
+        text-decoration: none;
+        padding: 10px;
+        color: var(--text-primary);
+        background-color: var(--bg-secondary);
+        border: 2px solid var(--text-primary);
+    }
+   
 
 </style>
 
@@ -284,10 +269,10 @@
     </header>
 
     <div class="picker">
-        <a href="getBlog">GET BLOG</a>
-        <a href="getBlogId">GET BLOG BY ID</a>
-        <a href="deleteBlog">DELETE BLOG</a>
-        <a href="postBlog">POST BLOG</a>
+        <p id="getBlog">GET BLOG</p>
+        <p id="getBlogId">GET BLOG BY ID</p>
+        <p  id="deleteBlog">DELETE BLOG</p>
+        <p  id="postBlog">POST BLOG</p>
     </div>
     <form id="apiForm" ></form>
 
