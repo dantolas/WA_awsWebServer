@@ -41,7 +41,7 @@ router.post('/login', async (req, res) => {
 
     let reqPasswordHash = hashPassword((requestPassword+rows[0].salt))
 
-    if(!validatePassword(requestPasswordHash,rows[0].passHash)){
+    if(!validatePassword(reqPasswordHash,rows[0].passHash)){
 
         res.status(401);
         res.set('Content-Type', 'application/json');
