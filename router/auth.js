@@ -20,7 +20,7 @@ router.post('/login', async (req, res) => {
    let rows = null;
    let params = [requestUsername,requestUsername]
    try{
-        let rows = await query('SELECT passHash,username,salt FROM Login WHERE Login.username = ? OR Login.email = ?', params);
+        rows = await query('SELECT passHash,username,salt FROM Login WHERE Login.username = ? OR Login.email = ?', params);
         console.log(rows);
    }catch(Exception){
 
