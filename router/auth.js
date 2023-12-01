@@ -14,11 +14,14 @@ router.post('/login', async (req, res) => {
    let requestUsername = req.body.username;
    let requestPassword = req.body.password;
 
+   console.log("request params: "+requestPassword, requestUsername)
+
 
    let rows = null;
    let params = [requestUsername,requestUsername]
    try{
         let rows = query('SELECT passHash,username,salt FROM Login WHERE Login.username = ? OR Login.email = ?', params);
+        console.log(rows);
    }catch(Exception){
 
     //TODO: Remove after testing for safety
@@ -32,7 +35,7 @@ router.post('/login', async (req, res) => {
    if(!rows){
     res.status(401);
         res.set('Content-Type', 'application/json');
-        let data = {login:'false', error:'incorrect login attributes',};
+        let data = {login:'false', error:'incorrect login attributes, rows empty',};
         return res.send(JSON.stringify(data)); 
    }
 
