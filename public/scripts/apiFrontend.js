@@ -16,6 +16,7 @@ document.querySelector("#getBlog").addEventListener('click',()=>{
     sendButton.className = "sendButton";
 
     apiForm.appendChild(sendButton);
+    apiForm.action = "api/blog";
     updateFormMethod(sendButton);
 
 })

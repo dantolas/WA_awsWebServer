@@ -3,6 +3,7 @@ import express from 'express'
 import {validatePassword,hashPassword} from '../functions/passValidation.js'
 import sessions from 'express-session';
 import { generateSalt } from '../functions/saltGenerator.js';
+import { fileURLToPath } from "url";
 
 
 const router = express.Router();
