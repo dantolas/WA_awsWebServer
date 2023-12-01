@@ -63,7 +63,7 @@ server.use(authRouter);
 server.use('*',(req,res) => {
     res.status(404);
     res.set('Content-Type','text/html');
-    res.redirect(path.joinj(__dirname,'public/views/404_schoolServer.html'))
+    res.redirect(path.join(__dirname,'public/views/404_schoolServer.html'))
     //res.sendFile(path.join(__dirname,'/views/404_schoolServer.html'));
 });
 
