@@ -10,12 +10,10 @@ const router = express.Router();
 
 router.post('/login', async (req, res) => {  
 
-   console.log("Login attempt");
 
    let requestUsername = req.body.username;
    let requestPassword = req.body.password;
 
-   console.log(requestUsername+" "+requestPassword)
 
    let rows = null;
    let params = [requestUsername,requestUsername]
@@ -63,7 +61,6 @@ router.post('/login', async (req, res) => {
 
 router.post('/signup', async (req, res) => {
 
-    console.log('Signup atempt');
     
     let requestUsername = req.body.username;
     let requestPassword = req.body.password;
@@ -72,7 +69,6 @@ router.post('/signup', async (req, res) => {
     let salt = generateSalt(requestUsername,requestPassword);
     let passHash = hashPassword((passHash+salt));
 
-    console.log(requestUsername+" "+requestPassword+ " "+requestEmail);
 
     try{
 
