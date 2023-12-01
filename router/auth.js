@@ -11,10 +11,8 @@ const router = express.Router();
 
 router.post('/login', async (req, res) => {  
 
-
     let requestUsername = req.body.username;
     let requestPassword = req.body.password;
-
 
     let rows = null;
     let params = [requestUsername,requestUsername]
@@ -40,7 +38,6 @@ router.post('/login', async (req, res) => {
 
     let reqPasswordHash = hashPassword((requestPassword+rows[0].salt))
 
-
     if(!validatePassword(reqPasswordHash,rows[0].passHash)){
 
         res.status(401);
@@ -53,7 +50,10 @@ router.post('/login', async (req, res) => {
     let user = {"username":rows[0].username, "loggedIn":1};
 
     req.session.user = JSON.stringify(user);
-    res.redirect(req.session.lastRequestAuthUrl);
+    if(req.query.req){
+        return res.redirect(req.query.req);
+    }
+    return res.redirect('/');
 
 });  
 
