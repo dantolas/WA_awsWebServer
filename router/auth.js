@@ -67,7 +67,7 @@ router.post('/signup', async (req, res) => {
     let requestEmail = req.body.email;
     
     let salt = generateSalt(requestUsername,requestPassword);
-    let passHash = hashPassword((passHash+salt));
+    let passHash = hashPassword((requestPassword+salt));
 
 
     try{
