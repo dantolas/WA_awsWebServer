@@ -19,6 +19,8 @@ router.get('/api/blog',async (req,res)=>{
         let data = {posts:"No posts present in database"};
         return res.send(JSON.stringify(data));
     }
+
+    console.log(rows)
  
     res.status(200);
     res.set('Content-Type', 'application/json');
