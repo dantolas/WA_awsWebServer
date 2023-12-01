@@ -13,7 +13,7 @@ router.get('/api/blog',async (req,res)=>{
     ' FROM Post INNER JOIN Login'+
     ' ON Post.author = Login.id;');
 
-    if(!rows){
+    if(!rows || rows.length <= 0){
         res.status(200);
         res.set('Content-Type', 'application/json');
         let data = {posts:"No posts present in database"};
@@ -42,16 +42,49 @@ router.get('/api/blog',async (req,res)=>{
 router.post('/api/blog',checkIfAuthenticated,async (req,res) =>{
 
     console.log('POST API REACHED');
-    let rows;
+    if(!req.body){
+        return res.send("You have sent a request without a body")
+    }
+    let body = null;
+
     try{
-       let rows = await query('INSERT INTO Post(author,title,content,date) values (?,?,?,NOW());');
+        body = JSON.parse(req.body);
     }catch(e){
-        console.log(e);
-        return res.send("Error occured,sorry bruv");
-        
+
+    }
+    
+    if(!body){
+        res.send("You must send a JSON object as the body of your request. Use this format: {author:<id>,title:<text>,content:<text>}");
+    }
+    let title = null;
+    let content = null;
+    let author = null;
+
+    try{
+        title = body.title;
+        content = body.content;
+        author = body.author;
+        if(typeof author != 'number'){
+            throw "Err";
+        }
+    }catch{
+        res.send("You've sent JSON in the wrong format. Use this format: {author:<id>,title:<text>,content:<text>}");
+
     }
 
-    let response = {Request:"Success"}
+    let rows;
+    try{
+       let rows = await query('INSERT INTO Post(author,title,content,date) values (?,?,?,NOW());SELECT LAST_INSERT_ID() as id;',[author,title,content]);
+    }catch(e){
+        console.log(e);
+        return res.send("Error in SQL query, either the author with this ID does not exist, or your title or content were too long.");   
+    }
+
+    if(!rows){
+        return res.send("Error no post id returned.");
+    }
+
+    let response = {Request:"Success", idOfPost:rows[0].id};
     return res.send(JSON.stringify(response));
 })
 
