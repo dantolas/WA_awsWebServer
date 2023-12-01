@@ -1,7 +1,7 @@
 export const checkIfAuthenticated =(req,res,next) =>{
     try{
         if(!req.session.user){
-            console.log("User not defined");
+            console.log("Auth fired");
             return res.redirect('/login');
         }   
     }catch(e){
