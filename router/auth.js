@@ -91,7 +91,8 @@ router.post('/signup', async (req, res) => {
 
 
 router.get('/login',async (req,res)=>{
-    res.redirect('/public/views/login.html')
+    res.send("Fuck you");
+    //res.redirect('/public/views/login.html')
 })  
 
 router.delete('/logout',async (req,res)=>{

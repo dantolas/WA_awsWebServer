@@ -57,7 +57,7 @@ server.get('/',checkIfAuthenticated,(req,res)=>{
 });
 
 server.use(authRouter);
-//server.use(apiRouter);
+server.use(apiRouter);
 
 //server.use(checkIfAuthenticated,express.static(path.join(__dirname,'/views/')));
 
