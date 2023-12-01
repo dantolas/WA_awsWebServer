@@ -53,7 +53,7 @@ server.get("/favicon.ico",(req,res)=>{
 server.get('/',checkIfAuthenticated,(req,res)=>{
     res.status(200);
     res.set('Content-Type','text/html');
-    res.sendFile('/views/index.html');
+    res.sendFile(path.join(__dirname,'/views/'));
 });
 
 server.use(authRouter);

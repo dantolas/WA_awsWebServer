@@ -7,6 +7,11 @@ import sessions from 'express-session';
 const router = express.Router();
 
 
+router.get('/api',async(req,res)=>{
+    res.status(200);
+    res.sendFile(path.join(__dirname,'public/views/api/api.html'))
+})
+
 router.get('/api/blog',async (req,res)=>{
 
     let rows = await query('SELECT Post.title AS title, Post.content AS content, Post.date AS date, Login.username AS author'+
