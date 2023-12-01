@@ -5,5 +5,5 @@ export const hashPassword = function(password){
 }
 
 export const validatePassword = function(password,hash){
-    return hashPassword(password) === hash 
+    return hashPassword(password).trim === hash.trim 
 }
