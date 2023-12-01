@@ -43,6 +43,8 @@ router.post('/login', async (req, res) => {
 
     let reqPasswordHash = hashPassword((requestPassword+rows[0].salt))
 
+    console.log(validatePassword(reqPasswordHash,rows[0].passHash))
+
     if(!validatePassword(reqPasswordHash,rows[0].passHash)){
 
         res.status(401);
