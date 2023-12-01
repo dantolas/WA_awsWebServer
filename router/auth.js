@@ -36,7 +36,7 @@ router.post('/login', async (req, res) => {
 
         res.status(401);
         res.set('Content-Type', 'application/json');
-        let data = {login:'false', error:'incorrect login attributes',explanation:'I was working on AJAX with jquery, that\'s the reason for this JSON response, however I couldn\'t get it to work in time so just accept this as a failed login attempt'};
+        let data = {login:'false', error:'incorrect login attributes',};
         connection.end();
         return res.send(JSON.stringify(data)); 
 

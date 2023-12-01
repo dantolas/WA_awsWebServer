@@ -11,5 +11,5 @@ export const checkIfAuthenticated =(req,res,next) =>{
        return res.send("ERORRITO ERRORITO BABy")
     }
 
-    res.redirect('/login')
+    return res.redirect('/login')
 }
