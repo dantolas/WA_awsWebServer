@@ -1,9 +1,7 @@
-let counter = 0;
 export const checkIfAuthenticated =(req,res,next) =>{
     try{
         if(!req.session.user){
-            counter ++;    
-            console.log("User not defined"+counter);
+            console.log("User not defined");
             return res.redirect('/login');
         }   
     }catch(e){

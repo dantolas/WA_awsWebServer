@@ -12,6 +12,13 @@ router.get('/api/blog',async (req,res)=>{
     let rows = query('SELECT Post.title AS title, Post.content AS content, Post.date AS date, Login.username AS author'+
     ' FROM Post INNER JOIN Login'+
     ' ON Post.author = Login.id;');
+
+    if(!rows){
+        res.status(200);
+        res.set('Content-Type', 'application/json');
+        let data = {posts:"No posts present in database"};
+        return res.send(JSON.stringify(data));
+    }
  
     res.status(200);
     res.set('Content-Type', 'application/json');
