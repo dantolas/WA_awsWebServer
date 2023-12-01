@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get('/api/blog',async (req,res)=>{
 
-    let rows = query('SELECT Post.title AS title, Post.content AS content, Post.date AS date, Login.username AS author'+
+    let rows = await query('SELECT Post.title AS title, Post.content AS content, Post.date AS date, Login.username AS author'+
     ' FROM Post INNER JOIN Login'+
     ' ON Post.author = Login.id;');
 
@@ -39,12 +39,12 @@ router.get('/api/blog',async (req,res)=>{
 })
  
 
-router.post('/api/blog',checkIfAuthenticated,(req,res) =>{
+router.post('/api/blog',checkIfAuthenticated,async (req,res) =>{
 
     console.log('POST API REACHED');
     let rows;
     try{
-        rows = query('INSERT INTO Post(author,title,content,date) values (?,?,?,NOW());')
+       let rows = await query('INSERT INTO Post(author,title,content,date) values (?,?,?,NOW());');
     }catch(e){
         console.log(e);
         return res.send("Error occured,sorry bruv");
