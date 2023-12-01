@@ -5,7 +5,8 @@ import sessions from "express-session";
 import cookieParser from "cookie-parser";
 import {checkIfAuthenticated} from "./functions/authentication.js";
 import authRouter from './router/auth.js';
-import express from 'express'
+import apiRouter from './router/api.js';
+import express from 'express';
 import config from "./config.js"; 
 import path, {dirname} from 'path';
 import { fileURLToPath } from "url";
@@ -56,6 +57,7 @@ server.get('/',checkIfAuthenticated,(req,res)=>{
 });
 
 server.use(authRouter);
+server.use(apiRouter);
 
 //server.use(checkIfAuthenticated,express.static(path.join(__dirname,'/views/')));
 
