@@ -53,7 +53,7 @@ router.post('/login', async (req, res) => {
     let user = {"username":rows[0].username, "loggedIn":1};
 
     req.session.user = JSON.stringify(user);
-    res.redirect("/");
+    res.redirect(req.session.lastRequestAuthUrl);
 
 });  
 
@@ -92,11 +92,7 @@ router.post('/signup', async (req, res) => {
 
 
 router.get('/login',async (req,res)=>{
-    let redirect = 'views/login.html';
-    if(req.session.lastRequestedAuthUrl){
-        redirect = req.session.lastRequestedAuthUrl;
-    }
-    res.redirect(redirect);
+    res.redirect('views/login.html');
 })  
 
 router.delete('/logout',async (req,res)=>{
