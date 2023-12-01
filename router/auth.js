@@ -19,8 +19,8 @@ router.post('/login', async (req, res) => {
 
    let rows = null;
    try{
-
-       let rows = query('SELECT `passHash`,`username`,`salt` FROM Login WHERE `Login.username` = ? OR `Login.email` = ?', requestUsername)
+        let args = [requestUsername,requestUsername]
+        let rows = query('SELECT `passHash`,`username`,`salt` FROM Login WHERE `Login.username` = ? OR `Login.email` = ?', args)
    }catch(Exception){
 
     //TODO: Remove after testing for safety
