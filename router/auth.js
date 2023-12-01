@@ -66,13 +66,13 @@ router.post('/signup', async (req, res) => {
     let requestPassword = req.body.password;
     let requestEmail = req.body.email;
     
-    let salt = generateSalt(requestUsername,requestPassword);
+    let salt = generateSalt(requestUsername,requestEmail);
     let passHash = hashPassword((requestPassword+salt));
 
 
     try{
 
-        query('INSERT INTO Login(username,email,passHash,salt) values (?,?,?,?)', [requestUsername,requestEmail,passHash,salt]);
+        await query('INSERT INTO Login(username,email,passHash,salt) values (?,?,?,?)', [requestUsername,requestEmail,passHash,salt]);
 
         console.log('Executed query');
         res.status(200);

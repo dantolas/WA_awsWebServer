@@ -15,13 +15,13 @@ export const  generateSalt = function (username,email){
     salt += SPECIAL_CHARACTERS[_getRandomInt(SPECIAL_CHARACTERS.length)];
     salt += SPECIAL_CHARACTERS[_getRandomInt(SPECIAL_CHARACTERS.length)];
 
-    salt+= username[_getRandomInt(username.length)];
-    salt+= username[_getRandomInt(username.length)];
-    salt+= username[_getRandomInt(username.length)];
+    salt += username[_getRandomInt(username.length)];
+    salt += username[_getRandomInt(username.length)];
+    salt += username[_getRandomInt(username.length)];
 
-    salt== email[_getRandomInt(email.length)];
-    salt== email[_getRandomInt(email.length)];
-    salt== email[_getRandomInt(email.length)];
+    salt += email[_getRandomInt(email.length)];
+    salt += email[_getRandomInt(email.length)];
+    salt += email[_getRandomInt(email.length)];
 
     return salt
 }
