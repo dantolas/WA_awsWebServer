@@ -44,16 +44,16 @@ router.get('/api/blog',async (req,res)=>{
  
 
 
-router.get('/api/blogId',async (req,res) =>{
+router.get('/api/blogId/:id',async (req,res) =>{
 
-    if(!req.id || typeof req.id != 'number'){
+    if(!req.params.id || typeof req.params.id != 'number'){
         return res.send("A valid id must be sent with this request. The id is a positive integer.");
     }
     let rows;
     try {
     rows = await query('SELECT Post.title AS title, Post.content AS content, Post.date AS date, Login.username AS author'+
     ' FROM Post INNER JOIN Login'+
-    ' ON Post.author = Login.id; AND Post.id =?',[req.id]);
+    ' ON Post.author = Login.id; AND Post.id =?',[req.params.id]);
     } catch (error) {
         return res.send("Error during SQL query.");
     }
@@ -115,13 +115,13 @@ router.post('/api/blog',async (req,res) =>{
     return res.send(JSON.stringify(response));
 })
 
-router.delete('/api/blog',checkIfAuthenticated,async (req,res)=>{
+router.delete('/api/blog/:id',checkIfAuthenticated,async (req,res)=>{
 
-    if(!req.id || typeof req.id != 'number'){
+    if(!req.params.id || typeof req.params.id != 'number'){
         res.send("A valid id must be sent with this request. The id is a positive integer.");
     }
     try {
-        query('DELETE FROM Post WHERE id = ?',[req.id]);
+        query('DELETE FROM Post WHERE id = ?',[req.params.id]);
     } catch (error) {
         res.send("Error during SQL query.");
     }

@@ -13,7 +13,7 @@ export const checkIfAuthenticated =(req,res,next) =>{
         if(!req.session.user){
             console.log("Auth fired:"+req.url);
             let requestURL = encodeURIComponent(req.url)
-            return res.redirect('/login?request='+requestURL);
+            return res.redirect('/login');
         }   
     }catch(e){
        console.log("Exception caught in checkIfAuthenticated");
