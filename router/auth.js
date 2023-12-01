@@ -18,8 +18,9 @@ router.post('/login', async (req, res) => {
    console.log(requestUsername+" "+requestPassword)
 
    let rows = null;
+   let params = [requestUsername,requestUsername]
    try{
-        let rows = query('SELECT `passHash`,`username`,`salt` FROM Login WHERE `Login.username` = ? OR `Login.email` = ?', [requestUsername,requestUsername])
+        let rows = query('SELECT passHash,username,salt FROM Login WHERE Login.username = ? OR Login.email = ?', params);
    }catch(Exception){
 
     //TODO: Remove after testing for safety
@@ -75,7 +76,7 @@ router.post('/signup', async (req, res) => {
 
     try{
 
-        query('INSERT INTO Login(`username`,`email`,`passHash`,`salt`) values (?,?,?,?)', requestUsername, requestEmail, passHash,salt);
+        query('INSERT INTO Login(username,email,passHash,salt) values (?,?,?,?)', [requestUsername,requestEmail,passHash,salt]);
 
         console.log('Executed query');
         res.status(200);
