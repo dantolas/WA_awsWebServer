@@ -94,9 +94,9 @@ router.post('/signup', async (req, res) => {
 router.get('/login',async (req,res)=>{
     let redirectURL = '/views/login.html';    
     if(req.params.request){
-        redirectURL = req.params.request;
+        redirectURL = req.query.request;
     }
-    res.redirect(redirectURL)
+    res.redirect(redirectURL);
 })  
 
 router.delete('/logout',async (req,res)=>{
