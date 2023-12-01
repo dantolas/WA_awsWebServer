@@ -91,7 +91,7 @@ router.post('/signup', async (req, res) => {
 });
 
 
-router.get('/login',async (req,res)=>{
+router.get('/login/:',async (req,res)=>{
     let redirectURL = '/views/login.html';    
     if(req.query.request){
         redirectURL = req.query.request;
