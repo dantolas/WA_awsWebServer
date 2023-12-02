@@ -145,7 +145,7 @@ router.post('/api/blog',checkIfAuthenticated,async (req,res) =>{
     console.log('POST API REACHED');
     console.log(req.body);
     
-    let body = null;
+    let body = req.body;
 
     try{
         body = JSON.parse(req.body);
