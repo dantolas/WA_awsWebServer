@@ -143,6 +143,7 @@ router.get('/api/blogId/:id',async (req,res) =>{
 router.post('/api/blog',checkIfAuthenticated,async (req,res) =>{
 
     console.log('POST API REACHED');
+    console.log(req.body);
     
     let body = null;
 
