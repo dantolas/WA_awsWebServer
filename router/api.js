@@ -61,7 +61,7 @@ router.get('/api/blogId',async (req,res) =>{
     try {
     rows = await query('SELECT Post.title AS title, Post.content AS content, Post.date AS date, Login.username AS author'+
     ' FROM Post INNER JOIN Login'+
-    ' ON Post.author = Login.id; AND Post.id =?',[id]);
+    ' ON Post.author = Login.id AND Post.id =?',[id]);
     } catch (error) {
         console.log(error);
         return res.send("Error during SQL query.");
@@ -110,7 +110,7 @@ router.get('/api/blogId/:id',async (req,res) =>{
     try {
     rows = await query('SELECT Post.title AS title, Post.content AS content, Post.date AS date, Login.username AS author'+
     ' FROM Post INNER JOIN Login'+
-    ' ON Post.author = Login.id; AND Post.id =?',[id]);
+    ' ON Post.author = Login.id AND Post.id =?',[id]);
     } catch (error) {
 
         console.log(error);
