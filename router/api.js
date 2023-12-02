@@ -44,7 +44,7 @@ router.get('/api/blog',async (req,res)=>{
 
 router.get('/api/blogId',async (req,res) =>{
 
-    console.log("Api blogId query params:"+req.query);
+    console.log("Api blogId query params:"+req.query.id);
 
     if(!req.query.id || typeof req.query.id != 'number'){
         return res.send("A valid id must be sent with this request. The id is a positive integer.");
