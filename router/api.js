@@ -63,6 +63,7 @@ router.get('/api/blogId',async (req,res) =>{
     ' FROM Post INNER JOIN Login'+
     ' ON Post.author = Login.id; AND Post.id =?',[id]);
     } catch (error) {
+        console.log(error);
         return res.send("Error during SQL query.");
     }
 
@@ -94,30 +95,48 @@ router.get('/api/blogId/:id',async (req,res) =>{
 
     console.log("Api blogId url params:"+req.params);
 
-    if(!req.params.id || typeof req.params.id != 'number'){
+    if(!req.params.id){
         return res.send("A valid id must be sent with this request. The id is a positive integer.");
     }
+    let id;
+    try {
+        id = parseInt(req.query.id);
+    } catch (error) {
+        return res.send("A valid id must be sent with this request. The id must be a positive integer.");
+    }
+
+
     let rows;
     try {
     rows = await query('SELECT Post.title AS title, Post.content AS content, Post.date AS date, Login.username AS author'+
     ' FROM Post INNER JOIN Login'+
-    ' ON Post.author = Login.id; AND Post.id =?',[req.params.id]);
+    ' ON Post.author = Login.id; AND Post.id =?',[id]);
     } catch (error) {
+
+        console.log(error);
         return res.send("Error during SQL query.");
     }
+
+
+    if(!rows ||rows.length == 0){
+        res.status(200);
+        res.set('Content-Type', 'application/json');
+        let data = {posts:"No posts present in database"};
+        return res.send(JSON.stringify(data));
+    }
+
      
     res.status(200);
     res.set('Content-Type', 'application/json');
-    let data = {"posts":[]}
-    for(let i = 0; i < rows.length; i++){
-        let author = rows[i].author;
-        let title = rows[i].title;
-        let content = rows[i].content;
-        let date = rows[i].date;
-        let post = {'author':author,'title':title,'content':content,'date':date}
-        data.posts.push(post);
-    }
+    let data = {posts:[]}
     
+    let author = rows[0].author;
+    let title = rows[0].title;
+    let content = rows[0].content;
+    let date = rows[0].date;
+    let post = {'author':author,'title':title,'content':content,'date':date}
+    data.posts.push(post);
+
     return res.send(JSON.stringify(data));
 })
 
