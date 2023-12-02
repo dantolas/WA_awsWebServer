@@ -28,10 +28,10 @@ document.querySelector("#getBlogId").addEventListener('click',()=>{
     inputID.type = "number";
     inputID.required = true;
     inputID.className="numberInput";
+    inputID.name = 'id';
 
     const sendButton = document.createElement("input");
     sendButton.type = "submit";
-    sendButton.innerHTML = "Send GET request";
     sendButton.value = "GET";
     sendButton.className = "sendButton";
 
@@ -62,6 +62,14 @@ document.querySelector("#deleteBlog").addEventListener('click',()=>{
 document.querySelector("#postBlog").addEventListener('click',()=>{
     apiForm.replaceChildren();
 
+
+    const username = document.createElement("input");
+    username.type = "text";
+    username.placeholder = "Title goes here";
+    username.name = "username";
+    username.required = true;
+    username.className = "textInput";
+
     const title = document.createElement("input");
     title.type = "text";
     title.placeholder = "Title goes here";
@@ -76,6 +84,8 @@ document.querySelector("#postBlog").addEventListener('click',()=>{
     content.name = "content";
     content.required = true;
     content.className = "textInputArea";
+
+    
    
     
 
@@ -87,6 +97,7 @@ document.querySelector("#postBlog").addEventListener('click',()=>{
     sendButton.value = "POST";
     sendButton.className = "sendButton";
 
+    apiForm.appendChild(username);
     apiForm.appendChild(title);
     apiForm.appendChild(content);
     apiForm.appendChild(sendButton);

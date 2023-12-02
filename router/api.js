@@ -73,12 +73,10 @@ router.get('/api/blogId/:id',async (req,res) =>{
     return res.send(JSON.stringify(data));
 })
 
-router.post('/api/blog',async (req,res) =>{
+router.post('/api/blog',checkIfAuthenticated,async (req,res) =>{
 
     console.log('POST API REACHED');
-    if(!req.body){
-        return res.send("You have sent a request without a body")
-    }
+    
     let body = null;
 
     try{
@@ -87,28 +85,40 @@ router.post('/api/blog',async (req,res) =>{
 
     }
     
-    if(!body){
-        res.send("You must send a JSON object as the body of your request. Use this format: {title:<text>,content:<text>}");
+    if(!body || !body.title || !body.content || body.username){
+        return res.send("You must send a JSON object as the body of your request. Use this format: {title:<text>,content:<text>,username:<yourUsername>}");
     }
 
-    let title = body.title;
-    let content = body.author;
-    if(!title || !content){
-        res.send("You've sent JSON in the wrong format. Use this format: {author:<id>,title:<text>,content:<text>}");
-
+    if(req.username != req.session.user.username){
+        return res.send("Your username does not match the username sent. Please login as the user you want to post as.");
     }
+
     
 
     let rows;
+
+
+    try {
+        rows = await query('SELECT id FROM Login WHERE Login.username = ? OR Login.email = ?;'[body.username,body.username]);
+    } catch (error) {
+        return res.send("Couldn't extract userId from username.");
+    }
+
+    if(!rows){
+        return res.send("No user id returned for this username.");
+    }
+
+    let userId = rows[0].id;
+
     try{
-       let rows = await query('INSERT INTO Post(author,title,content,date) values (?,?,?,NOW());SELECT LAST_INSERT_ID() as id;',[req.session.user.username,title,content]);
+       rows = await query('INSERT INTO Post(author,title,content,date) values (?,?,?,NOW());SELECT LAST_INSERT_ID() as id;',[userId,title,content]);
     }catch(e){
         console.log(e);
         return res.send("Error in SQL query, either the author with this ID does not exist, or your title or content were too long.");   
     }
 
     if(!rows){
-        return res.send("Error no post id returned.");
+        return res.send("No post id returned after insert.");
     }
 
     let response = {Request:"Success", idOfPost:rows[0].id};
