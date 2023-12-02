@@ -1,5 +1,5 @@
 const apiForm = document.querySelector("#apiForm");
-apiForm.action = "/api/blog"
+
     
 function updateFormMethod(element){
     apiForm.setAttribute("method",element.value);
@@ -65,7 +65,7 @@ document.querySelector("#postBlog").addEventListener('click',()=>{
 
     const username = document.createElement("input");
     username.type = "text";
-    username.placeholder = "Title goes here";
+    username.placeholder = "Username goes here";
     username.name = "username";
     username.required = true;
     username.className = "textInput";
@@ -102,5 +102,6 @@ document.querySelector("#postBlog").addEventListener('click',()=>{
     apiForm.appendChild(content);
     apiForm.appendChild(sendButton);
     updateFormMethod(sendButton);
+    apiForm.action = '/api/blog';
 
 })
