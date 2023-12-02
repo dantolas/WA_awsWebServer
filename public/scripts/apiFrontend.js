@@ -38,7 +38,7 @@ document.querySelector("#getBlogId").addEventListener('click',()=>{
     apiForm.appendChild(inputID);
     apiForm.appendChild(sendButton);
     updateFormMethod(sendButton);
-    apiForm.action = "/api/blogId/"+inputID.value
+    apiForm.action = "/api/blogId"
 
 })
 

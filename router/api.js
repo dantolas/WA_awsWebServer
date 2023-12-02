@@ -41,6 +41,42 @@ router.get('/api/blog',async (req,res)=>{
     return res.send(JSON.stringify(data));
  
 })
+
+router.get('/api/blogId',async (req,res) =>{
+
+    if(!req.query.id || typeof req.query.id != 'number'){
+        return res.send("A valid id must be sent with this request. The id is a positive integer.");
+    }
+    let rows;
+    try {
+    rows = await query('SELECT Post.title AS title, Post.content AS content, Post.date AS date, Login.username AS author'+
+    ' FROM Post INNER JOIN Login'+
+    ' ON Post.author = Login.id; AND Post.id =?',[req.query.id]);
+    } catch (error) {
+        return res.send("Error during SQL query.");
+    }
+
+    if(!rows ||rows.length == 0){
+        res.status(200);
+        res.set('Content-Type', 'application/json');
+        let data = {posts:"No posts present in database"};
+        return res.send(JSON.stringify(data));
+    }
+     
+    res.status(200);
+    res.set('Content-Type', 'application/json');
+    let data = {posts:[]}
+    
+    let author = rows[0].author;
+    let title = rows[0].title;
+    let content = rows[0].content;
+    let date = rows[0].date;
+    let post = {'author':author,'title':title,'content':content,'date':date}
+    data.posts.push(post);
+
+    
+    return res.send(JSON.stringify(data));
+})
  
 
 

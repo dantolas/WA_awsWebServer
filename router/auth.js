@@ -11,7 +11,6 @@ const router = express.Router();
 
 router.post('/login', async (req, res) => {  
 
-    console.log("Login POST received with session req:"+req.session.req)
 
     let requestUsername = req.body.username;
     let requestPassword = req.body.password;
@@ -22,19 +21,14 @@ router.post('/login', async (req, res) => {
         rows = await query('SELECT passHash,username,salt FROM Login WHERE Login.username = ? OR Login.email = ?', params);
     }catch(Exception){
 
-    //TODO: Remove after testing for safety
-    let data = {"exception":exception, "TODO":"Remove after testing for safety"}
     res.status(401);
-    res.set('Content-Type', 'application/json');
-    return res.send(JSON.stringify(data));
+    return res.send("Error during SQL query. Please try again later.");
 
     }
 
     if(!rows || rows.length == 0){
     res.status(401);
-        res.set('Content-Type', 'application/json');
-        let data = {login:'false', error:'incorrect login attributes, rows empty',};
-        return res.send(JSON.stringify(data)); 
+        return res.send("Incorrect login attributes. I didn't quite get to making flash messages...") 
     }
 
 
@@ -43,9 +37,7 @@ router.post('/login', async (req, res) => {
     if(!validatePassword(reqPasswordHash,rows[0].passHash)){
 
         res.status(401);
-        res.set('Content-Type', 'application/json');
-        let data = {login:'false', error:'incorrect login password',};
-        return res.send(JSON.stringify(data)); 
+        return res.send("Incorrect login password. I didn't quite get to making flash messages...") 
 
     }
 
