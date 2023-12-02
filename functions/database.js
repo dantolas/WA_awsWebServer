@@ -10,4 +10,7 @@ export async function query(sql, sqlParams) {
     }catch(e){
         throw e
     }
+    finally{
+        connection.relase();
+    }
 }
