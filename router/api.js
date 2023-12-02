@@ -46,14 +46,22 @@ router.get('/api/blogId',async (req,res) =>{
 
     console.log("Api blogId query params:"+req.query.id);
 
-    if(!req.query.id || typeof req.query.id != 'number'){
-        return res.send("A valid id must be sent with this request. The id is a positive integer.");
+    if(!req.query.id){
+        return res.send("A valid id must be sent with this request. The id must be a positive integer.");
     }
+
+    let id;
+    try {
+        id = parseInt(req.query.id);
+    } catch (error) {
+        return res.send("A valid id must be sent with this request. The id must be a positive integer.");
+    }
+
     let rows;
     try {
     rows = await query('SELECT Post.title AS title, Post.content AS content, Post.date AS date, Login.username AS author'+
     ' FROM Post INNER JOIN Login'+
-    ' ON Post.author = Login.id; AND Post.id =?',[req.query.id]);
+    ' ON Post.author = Login.id; AND Post.id =?',[id]);
     } catch (error) {
         return res.send("Error during SQL query.");
     }
