@@ -155,7 +155,7 @@ router.post('/api/blog',checkIfAuthenticated,async (req,res) =>{
 
     console.log(body);
     
-    if(!body || !body.title || !body.content || body.username){
+    if(!body || !body.title || !body.content || !body.username){
         return res.send("You must send a JSON object as the body of your request. Use this format: {title:<text>,content:<text>,username:<yourUsername>}");
     }
 
