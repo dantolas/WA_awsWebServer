@@ -19,11 +19,18 @@ Bud muzete poslat HTTP request, nebo vyuzit Frontendu ktery jsem udelal. Dostane
 
 ### EDNPOINTS
 
-POST /api/blog - vytvoření nového blog postu. Blog post byste museli posílat ve formátu JSON (konkretní specifikace je na vás, musí ale být netriviální, t.j. jeden blog post musí obsahovat alespoň samotný kontent, datum vytváření a jméno autora). Po vytvoření blog postu a jeho přidání do db byste měli vrátit identifikátor nově vytvořeného objektu;
-**GET /api/blog** - zobrazení všech blog postů přítomných v db;
-**GET /api/blog/blogId** - zobrazení blog postu odpovídajícího uvedenému identifikátoru. Pokud takovýto blog post neexistuje, vygenerujte správnou chybu;
-**DELETE /api/blog/blogId** - smazaní blog postu odpovídajícího uvedenému identifikátoru. Pokud takovýto blog post neexistuje, vygenerujte správnou chybu;
-**PATCH /api/blog/blogId** - častečný update blog postu odpovídajícího uvedenému identifikátoru. Pokud takovýto blog post neexistuje, vygenerujte správnou chybu.
+**POST /api/blog**
+     - vytvoření nového blog postu. Pouzijte JSON ve formatu: {title:\<text>,content:\<text>}
+
+**GET /api/blog**
+     - zobrazení všech blog postů přítomných v db. Vraci se ve formatu JSON {posts:[{'author':author,'title':title,'content':content,'date':date}]};
+
+**GET /api/blog/blogId**
+     - zobrazení blog postu odpovídajícího uvedenému identifikátoru. Pokud takovýto blog post neexistuje,vrati prazdny JSON array;
+
+**DELETE /api/blog/blogId**
+     - smazaní blog postu odpovídajícího uvedenému identifikátoru. Pokud takovýto blog post neexistuje, posle se o tom zprava.
+
 
 
 ## Problem

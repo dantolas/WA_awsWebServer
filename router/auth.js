@@ -18,7 +18,7 @@ router.post('/login', async (req, res) => {
     let rows = null;
     let params = [requestUsername,requestUsername]
     try{
-        rows = await query('SELECT passHash,username,salt FROM Login WHERE Login.username = ? OR Login.email = ?', params);
+        rows = await query('SELECT passHash,id,salt FROM Login WHERE Login.username = ? OR Login.email = ?', params);
     }catch(Exception){
 
     res.status(401);
@@ -41,7 +41,7 @@ router.post('/login', async (req, res) => {
 
     }
 
-    let user = {"username":rows[0].username, "loggedIn":1};
+    let user = {"id":rows[0].id, "loggedIn":1};
 
     req.session.user = JSON.stringify(user);
     

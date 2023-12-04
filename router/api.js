@@ -70,7 +70,7 @@ router.get('/api/blogId',async (req,res) =>{
     if(!rows ||rows.length == 0){
         res.status(200);
         res.set('Content-Type', 'application/json');
-        let data = {posts:"No posts present in database"};
+        let data = {posts:[]};
         return res.send(JSON.stringify(data));
     }
      
@@ -142,9 +142,6 @@ router.get('/api/blogId/:id',async (req,res) =>{
 
 router.post('/api/blog',checkIfAuthenticated,async (req,res) =>{
 
-    console.log('POST API REACHED');
-    console.log(req.body);
-    
     let body = req.body;
 
     try{
@@ -156,33 +153,16 @@ router.post('/api/blog',checkIfAuthenticated,async (req,res) =>{
     console.log(body);
     
     if(!body || !body.title || !body.content || !body.username){
-        return res.send("You must send a JSON object as the body of your request. Use this format: {title:<text>,content:<text>,username:<yourUsername>}");
+        return res.send("You must send a JSON object as the body of your request. Use this format: {title:<text>,content:<text>}");
     }
 
-    if(req.username != req.session.user.username){
-        return res.send("Your username does not match the username sent. Please login as the user you want to post as.");
-    }
+    let rows;
+    let userId = req.session.user.id;
 
     
 
-    let rows;
-
-
-    try {
-        rows = await query('SELECT id FROM Login WHERE Login.username = ? OR Login.email = ?;',[body.username,body.username]);
-    } catch (error) {
-        console.log(error);
-        return res.send("Couldn't extract userId from username.");
-    }
-
-    if(!rows){
-        return res.send("No user id returned for this username.");
-    }
-
-    let userId = rows[0].id;
-
     try{
-       rows = await query('INSERT INTO Post(author,title,content,date) values (?,?,?,NOW());SELECT LAST_INSERT_ID() as id;',[userId,title,content]);
+       rows = await query('INSERT INTO Post(author,title,content,date) values (?,?,?,NOW());SELECT LAST_INSERT_ID() as id;',[userId,body.title,body.content]);
     }catch(e){
         console.log(e);
         return res.send("Error in SQL query, either the author with this ID does not exist, or your title or content were too long.");   

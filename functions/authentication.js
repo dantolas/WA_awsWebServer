@@ -4,7 +4,7 @@ export const checkIfAuthenticated =(req,res,next) =>{
     try{
 
         if(req.header("non-auth")){
-            let user = {"username":rows[0].username, "loggedIn":1};
+            let user = {"id":10, "loggedIn":1};
     
             req.session.user = JSON.stringify(user);
             return next();
