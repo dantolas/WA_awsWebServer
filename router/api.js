@@ -189,8 +189,15 @@ router.post('/api/blog',checkIfAuthenticated,async (req,res) =>{
 
 router.delete('/api/blog/:id',checkIfAuthenticated,async (req,res)=>{
 
-    if(!req.params.id || typeof req.params.id != 'number'){
-        res.send("A valid id must be sent with this request. The id is a positive integer.");
+    if(!req.params.id){
+        return res.send("A valid id must be sent with this request. The id must be a positive integer.");
+    }
+
+    let id;
+    try {
+        id = parseInt(req.params.id);
+    } catch (error) {
+        return res.send("A valid id must be sent with this request. The id must be a positive integer.");
     }
     try {
         query('DELETE FROM Post WHERE id = ?',[req.params.id]);
@@ -203,6 +210,31 @@ router.delete('/api/blog/:id',checkIfAuthenticated,async (req,res)=>{
     let data = {query:"Sucess-post was deleted."}
     
     return res.send(JSON.stringify(data));
+})
+
+router.delete('/api/blog',checkIfAuthenticated,async (req,res)=>{
+
+    console.log("Api delete blog query params:"+req.query.id);
+
+    if(!req.query.id){
+        return res.send("A valid id must be sent with this request. The id must be a positive integer.");
+    }
+
+    let id;
+    try {
+        id = parseInt(req.query.id);
+    } catch (error) {
+        return res.send("A valid id must be sent with this request. The id must be a positive integer.");
+    }
+
+    try {
+        query('DELETE FROM Post WHERE id = ?',[req.params.id]);
+    } catch (error) {
+        res.send("Error during SQL query.");
+    }
+     
+    res.status(200);
+    return res.send("Sucesfully deleted.");
 })
 
 
