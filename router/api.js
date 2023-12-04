@@ -165,17 +165,17 @@ router.post('/api/blog',checkIfAuthenticated,async (req,res) =>{
     
 
     try{
-       rows = await query('INSERT INTO Post(author,title,content,date) values (?,?,?,NOW());',[userId,body.title,body.content]);
+       rows = await query('INSERT INTO Post(author,title,content,date) values (?,?,?,NOW());SELECT LAST_INSERT_ID() as id;',[userId,body.title,body.content]);
     }catch(e){
         console.log(e);
         return res.send("Error in SQL query, either the author with this ID does not exist, or your title or content were too long.");   
     }
 
-    try {
-        rows = await query('SELECT LAST_INSERT_ID() as id;');
-    } catch (error) {
-        console.log(error);
-    }
+    // try {
+    //     rows = await query('SELECT LAST_INSERT_ID() as id;');
+    // } catch (error) {
+    //     console.log(error);
+    // }
 
     if(!rows){
         return res.send("No post id returned after insert.");
