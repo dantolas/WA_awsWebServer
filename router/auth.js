@@ -41,12 +41,12 @@ router.post('/login', async (req, res) => {
 
     }
 
-    let user = {"id":rows[0].id, "loggedIn":1};
+    let user = {id:rows[0].id, loggedIn:1};
 
-    req.session.user = JSON.stringify(user);
+    req.session.user = user; 
     
-    if(req.query.req){
-        return res.redirect(req.query.req);
+    if(req.url){
+        return res.redirect(req.url);
     }
     return res.redirect('/');
 
