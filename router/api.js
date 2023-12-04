@@ -152,24 +152,29 @@ router.post('/api/blog',checkIfAuthenticated,async (req,res) =>{
     }
 
     console.log(body);
-    console.log(body.title);
-    console.log(body.content);
+    
     
     if(!body || !body.title || !body.content){
         return res.send("You must send a JSON object as the body of your request. Use this format: {title:<text>,content:<text>}");
     }
 
     let rows;
-    let userId = req.session.user.id;
+    let userId = req.session.user["id"];
     console.log(userId);
 
     
 
     try{
-       rows = await query('INSERT INTO Post(author,title,content,date) values (?,?,?,NOW());SELECT LAST_INSERT_ID() as id;',[userId,body.title,body.content]);
+       rows = await query('INSERT INTO Post(author,title,content,date) values (?,?,?,NOW());',[userId,body.title,body.content]);
     }catch(e){
         console.log(e);
         return res.send("Error in SQL query, either the author with this ID does not exist, or your title or content were too long.");   
+    }
+
+    try {
+        rows = await query('SELECT LAST_INSERT_ID() as id;');
+    } catch (error) {
+        console.log(error);
     }
 
     if(!rows){
