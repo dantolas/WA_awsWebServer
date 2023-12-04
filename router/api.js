@@ -143,6 +143,7 @@ router.get('/api/blogId/:id',async (req,res) =>{
 router.post('/api/blog',checkIfAuthenticated,async (req,res) =>{
 
     let body = req.body;
+    console.log(req.session.user)
 
     try{
         body = JSON.parse(req.body);
