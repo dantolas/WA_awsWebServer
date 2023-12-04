@@ -63,13 +63,6 @@ document.querySelector("#postBlog").addEventListener('click',()=>{
     apiForm.replaceChildren();
 
 
-    const username = document.createElement("input");
-    username.type = "text";
-    username.placeholder = "Username goes here";
-    username.name = "username";
-    username.required = true;
-    username.className = "textInput";
-
     const title = document.createElement("input");
     title.type = "text";
     title.placeholder = "Title goes here";
@@ -85,19 +78,12 @@ document.querySelector("#postBlog").addEventListener('click',()=>{
     content.required = true;
     content.className = "textInputArea";
 
-    
-   
-    
-
-
-
     const sendButton = document.createElement("input");
     sendButton.type = "submit";
     sendButton.innerHTML = "Send POST request";
     sendButton.value = "POST";
     sendButton.className = "sendButton";
 
-    apiForm.appendChild(username);
     apiForm.appendChild(title);
     apiForm.appendChild(content);
     apiForm.appendChild(sendButton);
