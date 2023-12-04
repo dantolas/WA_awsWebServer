@@ -169,7 +169,7 @@ router.post('/api/blog',checkIfAuthenticated,async (req,res) =>{
 
 
     try {
-        rows = await query('SELECT id FROM Login WHERE Login.username = ? OR Login.email = ?;'[body.username,body.username]);
+        rows = await query('SELECT id FROM Login WHERE Login.username = ? OR Login.email = ?;',[body.username,body.username]);
     } catch (error) {
         console.log(error);
         return res.send("Couldn't extract userId from username.");
