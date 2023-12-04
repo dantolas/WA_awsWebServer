@@ -158,7 +158,7 @@ router.post('/api/blog',checkIfAuthenticated,async (req,res) =>{
     }
 
     let rows;
-    let userId = req.session.user.id;
+    let userId = req.session.user['id'];
 
     
 
