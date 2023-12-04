@@ -152,6 +152,8 @@ router.post('/api/blog',checkIfAuthenticated,async (req,res) =>{
     }
 
     console.log(body);
+    console.log(body.title);
+    console.log(body.content);
     
     if(!body || !body.title || !body.content){
         return res.send("You must send a JSON object as the body of your request. Use this format: {title:<text>,content:<text>}");
@@ -159,6 +161,7 @@ router.post('/api/blog',checkIfAuthenticated,async (req,res) =>{
 
     let rows;
     let userId = req.session.user['id'];
+    console.log(userId);
 
     
 
