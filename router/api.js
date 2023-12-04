@@ -228,9 +228,9 @@ router.delete('/api/blog',checkIfAuthenticated,async (req,res)=>{
     }
 
     try {
-        query('DELETE FROM Post WHERE id = ?',[req.params.id]);
+        query('DELETE FROM Post WHERE id = ?',[req.query.id]);
     } catch (error) {
-        res.send("Error during SQL query.");
+        return res.send("Error during SQL query.");
     }
      
     res.status(200);
