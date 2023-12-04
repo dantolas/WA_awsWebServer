@@ -181,6 +181,8 @@ router.post('/api/blog',checkIfAuthenticated,async (req,res) =>{
         return res.send("No post id returned after insert.");
     }
 
+    console.log(rows);
+
     let response = {Request:"Success", idOfPost:rows[0].id};
     return res.send(JSON.stringify(response));
 })
